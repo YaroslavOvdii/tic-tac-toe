@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'app',
+  name: 'TicTacToe',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

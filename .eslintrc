@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:vue/essential"
+  ],
+  "rules": {
+    "no-new": "off",
+    "arrow-parens": "off"
+  }
+}
