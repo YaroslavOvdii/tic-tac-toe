@@ -3,10 +3,11 @@
     <Status :player="player" :isGameWon="isGameFinished" :draw="isItADraw" @restart="restartGame()"></Status>
     <div class="cell-group">
       <Cell v-for="(cell, index) in grid" v-bind:key="index"
-      :currentPlayer="player" :cellValue="cell" :cellIndex="index" :isGameFinished="isGameFinished"
-      :isGameRestarted="restart"
-      @changedCellStatus="runCheck($event)"
-      @cellRestarted="restart = false"
+      :currentPlayer="player"
+      :cellValue="cell"
+      :cellIndex="index"
+      :isGameFinished="isGameFinished"
+      @changedCellStatus="endOfTheTurn($event)"
       ></Cell>
     </div>
   </div>
@@ -20,7 +21,7 @@ export default {
   name: 'TicTacToe',
   data () {
     return {
-      winSquances: [
+      winSequences: [
         [0, 1, 2],
         [0, 4, 8],
         [1, 4, 7],
@@ -44,7 +45,7 @@ export default {
     Status
   },
   methods: {
-    runCheck: function(cellIndex) {
+    endOfTheTurn: function(cellIndex) {
       this.grid[cellIndex] = this.player;
 
       if (this.isPlayerWon()) {
@@ -65,16 +66,16 @@ export default {
     isPlayerWon: function() {
       let isPlayerWon = false;
 
-      for (let i = 0; i < this.winSquances.length; i++) {
-        let winSquance = this.winSquances[i];
-        let cellA = this.grid[winSquance[0]];
-        let cellB = this.grid[winSquance[1]];
-        let cellC = this.grid[winSquance[2]];
+      for (let i = 0; i < this.winSequences.length; i++) {
+        let winSequence = this.winSequences[i];
+        let cellA = this.grid[winSequence[0]];
+        let cellB = this.grid[winSequence[1]];
+        let cellC = this.grid[winSequence[2]];
 
         if (cellA !== '' && cellB !== '' && cellC !== '') {
           if (cellA === cellB && cellB === cellC) {
             isPlayerWon = true;
-            debugger;
+
             break;
           }
         }
@@ -87,7 +88,6 @@ export default {
     },
     restartGame: function() {
       this.grid = ['', '', '', '', '', '', '', '', ''];
-      this.restart = true;
       this.player = 'X';
       this.isGameFinished = false;
       this.isItADraw = false;

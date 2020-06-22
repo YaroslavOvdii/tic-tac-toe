@@ -1,6 +1,6 @@
 <template>
-  <button @click="changeCellStatus()" class="cell" :disabled="isGameFinished || isCellNotEmpty">
-    {{ status || cellValue }}
+  <button @click="changeCellStatus()" class="cell" :disabled="isGameFinished || !!cellValue">
+    {{ cellValue }}
   </button>
 </template>
 
@@ -12,10 +12,6 @@ export default {
       type: Number,
       default: 0
     },
-    currentPlayer: {
-      type: String,
-      default: ''
-    },
     cellValue: {
       type: String,
       default: ''
@@ -23,31 +19,10 @@ export default {
     isGameFinished: {
       type: Boolean,
       default: false
-    },
-    isGameRestarted: {
-      type: Boolean,
-      default: false
-    }
-  },
-  data() {
-    return {
-      status: '',
-      isCellNotEmpty: false
-    }
-  },
-  updated: function() {
-    if (this.isGameRestarted) {
-      this.isCellNotEmpty = false;
-      this.status = '';
-
-      this.$emit('cellRestarted');
     }
   },
   methods: {
     changeCellStatus: function() {
-      this.status = this.currentPlayer;
-      this.isCellNotEmpty = true;
-
       this.$emit('changedCellStatus', this.cellIndex);
     }
   }
@@ -61,9 +36,9 @@ export default {
     align-items: center;
     flex: 1;
     background-color:transparent;
+    border: 1px solid;
     width: 100%;
     height: 100px;
-    border: 1px solid;
     cursor: pointer;
     flex-basis: 33%;
     text-align: center;
