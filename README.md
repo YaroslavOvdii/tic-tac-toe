@@ -1,6 +1,9 @@
 # tic-tac-toe
 
-> A Vue.js project
+> Simple tic tac toe game using VUE.js
+
+## Example
+https://yaroslavovdii.github.io/tic-tac-toe/
 
 ## Build Setup
 
